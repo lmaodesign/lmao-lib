@@ -72,9 +72,5 @@ allprojects {
         }
     }
 
-    test {
-        useJUnitPlatform()
-    }
-
     tasks.build.dependsOn(shadowJar)
 }
