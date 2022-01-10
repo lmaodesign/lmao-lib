@@ -17,12 +17,20 @@ object ScoreboardService
 
     var delay: Long = 20L
 
-    var adapter: ScoreboardAdapter? = null
+    var adapters = mutableListOf<ScoreboardAdapter>()
     var updater: ScoreboardUpdaterHandler = ObjectiveScoreboardUpdaterHandler
 
     @Configure
     fun configure()
     {
         ScoreboardUpdaterHandlerThread.run()
+    }
+
+    @JvmStatic
+    fun registerAdapter(
+        adapter: ScoreboardAdapter
+    )
+    {
+        this.adapters += adapter
     }
 }

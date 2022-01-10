@@ -6,7 +6,13 @@ import design.lmao.lib.scoreboard.ScoreboardService
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class ScoreboardAdapterBuilder : ScoreboardAdapter
+class ScoreboardAdapterBuilder(
+    id: String,
+    weight: Int = 0
+) : ScoreboardAdapter(
+    id,
+    weight
+)
 {
     private var linesPatch: (Player.() -> MutableList<String>)? = null
     private var titlePatch: (Player.() -> String)? = null

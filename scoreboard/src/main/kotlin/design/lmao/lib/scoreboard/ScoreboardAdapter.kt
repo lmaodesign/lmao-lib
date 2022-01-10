@@ -2,9 +2,12 @@ package design.lmao.lib.scoreboard
 
 import org.bukkit.entity.Player
 
-interface ScoreboardAdapter
+abstract class ScoreboardAdapter(
+    val id: String,
+    val weight: Int = 0
+)
 {
-    fun getElement(
+    abstract fun getElement(
         player: Player
     ): ScoreboardElement?
 

@@ -1,6 +1,5 @@
 package design.lmao.lib.scoreboard.updater.impl
 
-import design.lmao.lib.scoreboard.ScoreboardElement
 import design.lmao.lib.scoreboard.updater.ScoreboardUpdaterHandler
 import org.apache.commons.lang.StringUtils
 import org.bukkit.Bukkit
@@ -15,11 +14,14 @@ object ObjectiveScoreboardUpdaterHandler : ScoreboardUpdaterHandler
 {
     private val identifiers = hashMapOf<Player, MutableList<String>>()
 
-    override fun displayElement(player: Player, element: ScoreboardElement)
+    override fun displayElement(
+        player: Player,
+        title: String,
+        lines: List<String>
+    )
     {
         this.identifiers.putIfAbsent(player, mutableListOf())
 
-        val lines = element.lines
         val identifiers = this.identifiers[player]!!
 
         val board = this.retrieveScoreboard(player)
@@ -55,7 +57,7 @@ object ObjectiveScoreboardUpdaterHandler : ScoreboardUpdaterHandler
             }
         }
 
-        objective.displayName = element.title
+        objective.displayName = title
         player.scoreboard = board
     }
 

@@ -13,35 +13,43 @@ object ScoreboardUpdaterHandlerThread : Thread()
 
     private val delay = ScoreboardService.delay
     private val updater = ScoreboardService.updater
-    private val adapter = ScoreboardService.adapter
+    private val adapters = ScoreboardService.adapters
 
     override fun run()
     {
-        if (adapter == null)
-        {
-            this.logger.log(
-                Level.WARNING, "adapter value was not set"
-            )
-            return
-        }
-
         while (true)
         {
-            Bukkit.getOnlinePlayers().forEach {
-                if (it.isOnline && it != null)
+            Bukkit.getOnlinePlayers().forEach { player ->
+                if (player.isOnline && player != null)
                 {
-                    val element = adapter.getElement(it)
+                    val lines = mutableListOf<String>()
+                    var title: String? = null
 
-                    if (element == null)
-                    {
-                        this.logger.log(
-                            Level.WARNING, "adapter.getElement() returned null for ${it.uniqueId.toString()}"
-                        )
-                        return
-                    }
+                    adapters
+                        .sortedBy { it.weight }
+                        .forEach {
+                            val element = it.getElement(player)
+
+                            if (element == null)
+                            {
+                                this.logger.log(
+                                    Level.WARNING, "adapter.getElement() returned null for ${player.uniqueId}"
+                                )
+                                return
+                            }
+
+                            lines += element.lines
+
+                            if (title == null)
+                            {
+                                title = element.title
+                            }
+                        }
 
                     updater.displayElement(
-                        it, element
+                        player,
+                        title ?: "Not set",
+                        lines
                     )
                 }
             }

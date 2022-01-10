@@ -1,13 +1,13 @@
 package design.lmao.lib.scoreboard.updater
 
-import design.lmao.lib.scoreboard.ScoreboardElement
 import org.bukkit.entity.Player
 
 interface ScoreboardUpdaterHandler
 {
     fun displayElement(
         player: Player,
-        element: ScoreboardElement
+        title: String,
+        lines: List<String>
     )
 
     fun removeEntry(

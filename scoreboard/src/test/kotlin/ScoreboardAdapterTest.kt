@@ -4,7 +4,7 @@ import design.lmao.lib.scoreboard.builder.ElementBuilder
 import design.lmao.lib.scoreboard.builder.ScoreboardAdapterBuilder
 import org.bukkit.entity.Player
 
-class ScoreboardAdapterTest : ScoreboardAdapter
+class ScoreboardAdapterTest : ScoreboardAdapter("adapter-1")
 {
     override fun getElement(player: Player): ScoreboardElement
     {
@@ -21,7 +21,7 @@ class ScoreboardAdapterTest : ScoreboardAdapter
     }
 }
 
-class ScoreboardAdapterTest2 : ScoreboardAdapter
+class ScoreboardAdapterTest2 : ScoreboardAdapter("adapter-2")
 {
     override fun getElement(player: Player) = ScoreboardElement("test scoreboard")
         .apply {
@@ -34,7 +34,7 @@ class ScoreboardAdapterTest2 : ScoreboardAdapter
         }
 }
 
-class ScoreboardAdapter3 : ScoreboardAdapter
+class ScoreboardAdapter3 : ScoreboardAdapter("adapter-3")
 {
     override fun getElement(player: Player): ScoreboardElement
     {
@@ -55,7 +55,7 @@ class ScoreboardAdapter4
 {
     init
     {
-        ScoreboardAdapterBuilder()
+        ScoreboardAdapterBuilder("adapter-4")
             .lines { player ->
                 return@lines mutableListOf<String>().apply {
                     this += player.name
