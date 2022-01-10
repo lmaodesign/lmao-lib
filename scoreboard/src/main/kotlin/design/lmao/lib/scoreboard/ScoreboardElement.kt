@@ -22,6 +22,28 @@ open class ScoreboardElement(
         this.lines += ChatColor.translateAlternateColorCodes('&', value)
     }
 
+    infix fun addAll(
+        value: List<String>
+    )
+    {
+        this.lines.addAll(
+            value.map { 
+                ChatColor.translateAlternateColorCodes('&', it)
+            }
+        )
+    }
+    
+    fun addAll(
+        vararg value: String
+    )
+    {
+        this.lines.addAll(
+            value.map {
+                ChatColor.translateAlternateColorCodes('&', it)
+            }
+        )
+    }
+
     fun add(
         index: Int,
         value: String
