@@ -43,7 +43,7 @@ object ScoreboardUpdaterHandlerThread : Thread()
                             if (element == null)
                             {
                                 this.logger.log(
-                                    Level.WARNING, "adapter.getElement() returned null for ${player.uniqueId}"
+                                    Level.WARNING, "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
                                 )
                                 return
                             }

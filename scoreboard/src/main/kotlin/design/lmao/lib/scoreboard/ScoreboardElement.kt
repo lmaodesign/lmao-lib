@@ -15,33 +15,34 @@ open class ScoreboardElement(
         this.lines += value
     }
 
-    infix fun add(
-        value: String
+    operator fun plusAssign(
+        value: List<String>
     )
     {
-        this.lines += ChatColor.translateAlternateColorCodes('&', value)
+        this.lines += value
     }
 
     infix fun addAll(
         value: List<String>
     )
     {
-        this.lines.addAll(
-            value.map { 
-                ChatColor.translateAlternateColorCodes('&', it)
-            }
-        )
+        this += value.map {
+            ChatColor.translateAlternateColorCodes('&', it)
+        }
     }
-    
+
     fun addAll(
         vararg value: String
     )
     {
-        this.lines.addAll(
-            value.map {
-                ChatColor.translateAlternateColorCodes('&', it)
-            }
-        )
+        this@ScoreboardElement addAll value.toList()
+    }
+
+    infix fun add(
+        value: String
+    )
+    {
+        this.lines += ChatColor.translateAlternateColorCodes('&', value)
     }
 
     fun add(

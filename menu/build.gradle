@@ -1,0 +1,19 @@
+repositories {
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
+    testRuntimeOnly "org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT"
+}
+
+test {
+    useJUnitPlatform()
+}
