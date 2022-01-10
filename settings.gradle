@@ -1,0 +1,3 @@
+rootProject.name = 'lmao-lib'
+include 'common'
+include 'scoreboard'
