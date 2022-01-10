@@ -5,6 +5,7 @@ import gg.scala.flavor.inject.Inject
 import org.bukkit.Bukkit
 import java.util.logging.Level
 import java.util.logging.Logger
+import kotlin.math.log
 
 object ScoreboardUpdaterHandlerThread : Thread()
 {
@@ -17,6 +18,15 @@ object ScoreboardUpdaterHandlerThread : Thread()
 
     override fun run()
     {
+        if (adapters.isEmpty())
+        {
+            logger.log(
+                Level.SEVERE,
+                "Adapters list is empty, if you're not using `lmao-lib` scoreboards, it is recommended to remove the module."
+            )
+            return
+        }
+
         while (true)
         {
             Bukkit.getOnlinePlayers().forEach { player ->
