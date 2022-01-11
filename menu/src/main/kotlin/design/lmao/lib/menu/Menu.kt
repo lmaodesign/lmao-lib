@@ -5,11 +5,13 @@ import design.lmao.lib.menu.button.ButtonClosureBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
 
 abstract class Menu(
-    private val menuType: MenuType = MenuType.INVENTORY,
-    private val player: Player,
+    val menuType: MenuType = MenuType.INVENTORY,
+    val player: Player,
 
     val size: Int,
     val title: String
@@ -28,11 +30,19 @@ abstract class Menu(
         return ButtonClosureBuilder(material).apply(builder)
     }
 
-    fun update()
+    fun button(
+        itemStack: ItemStack,
+        builder: ButtonClosureBuilder.() -> Unit
+    ): Button
+    {
+        return ButtonClosureBuilder(itemStack).apply(builder)
+    }
+
+    open fun update()
     {
         val inventory = this.inventory ?: this.menuType.createInventory(this)
 
-        this.buttons.forEach {
+        this.getButtonsInRange().forEach {
             inventory.setItem(
                 it.key, it.value.createItem()
             )
@@ -53,10 +63,22 @@ abstract class Menu(
         MenuService.menus[player] = this
     }
 
-    fun click(
+    open fun getButtonsInRange(): Map<Int, Button>
+    {
+        return this.buttons
+    }
+
+    open fun click(
         event: InventoryClickEvent
     )
     {
-        this.buttons[event.slot]?.action?.invoke(event)
+        this.getButtonsInRange()[event.slot]?.action?.invoke(event)
+    }
+
+    open fun close(
+        event: InventoryCloseEvent
+    )
+    {
+        MenuService.menus.remove(this.player)
     }
 }

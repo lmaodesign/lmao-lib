@@ -1,6 +1,7 @@
 package design.lmao.lib.menu.button
 
 import org.bukkit.Material
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -43,6 +44,15 @@ class ButtonClosureBuilder(
     {
         return this.apply {
             this.data = patch.invoke()
+        }
+    }
+
+    fun action(
+        patch: (InventoryClickEvent.() -> Unit)
+    ): ButtonClosureBuilder
+    {
+        return this.apply {
+            this.action = patch
         }
     }
 }
