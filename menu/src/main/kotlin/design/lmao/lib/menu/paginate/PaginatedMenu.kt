@@ -26,14 +26,14 @@ abstract class PaginatedMenu(
         get()
         {
             return hashMapOf(
-                0 to button(this.previousPageBuilder.invoke()) {
+                0 to button(this.previousPage) {
                     this.action {
                         this@PaginatedMenu.apply {
                             this.page = max(1, this.page - 1); this.update()
                         }
                     }
                 },
-                8 to button(this.nextPageBuilder.invoke()) {
+                8 to button(this.nextPageBuilder) {
                     this.action {
                         this@PaginatedMenu.apply {
                             this.page += 1; this.update()
@@ -43,31 +43,29 @@ abstract class PaginatedMenu(
             )
         }
 
-    var previousPageBuilder: (() -> ItemStack) = {
-        ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
-            val meta = this.itemMeta
+    var previousPage = ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
+        val meta = this.itemMeta
 
-            if (meta != null)
-            {
-                meta.displayName = "${ChatColor.GREEN}Previous Page"
-            }
-
-            this.itemMeta = meta
+        if (meta != null)
+        {
+            meta.displayName = "${ChatColor.GREEN}Previous Page"
         }
+
+        this.itemMeta = meta
     }
 
-    var nextPageBuilder: (() -> ItemStack) = {
-        ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
-            val meta = this.itemMeta
 
-            if (meta != null)
-            {
-                meta.displayName = "${ChatColor.GREEN}Next Page"
-            }
+    var nextPageBuilder = ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
+        val meta = this.itemMeta
 
-            this.itemMeta = meta
+        if (meta != null)
+        {
+            meta.displayName = "${ChatColor.GREEN}Next Page"
         }
+
+        this.itemMeta = meta
     }
+
 
     override fun getButtonsInRange(): Map<Int, Button>
     {
