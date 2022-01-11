@@ -50,17 +50,14 @@ abstract class Menu(
 
         if (inventory != this.inventory)
         {
-            player.apply {
-                this.closeInventory(); this.openInventory(inventory)
-            }
-        } else
-        {
-            player.updateInventory()
+            player.openInventory(inventory)
         }
 
         this.inventory = inventory
 
-        MenuService.menus[player] = this
+        player.apply {
+            MenuService.menus[this] = this@Menu; player.updateInventory()
+        }
     }
 
     open fun getButtonsInRange(): Map<Int, Button>

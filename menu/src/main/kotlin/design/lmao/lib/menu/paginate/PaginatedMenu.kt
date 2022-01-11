@@ -66,7 +66,6 @@ abstract class PaginatedMenu(
         this.itemMeta = meta
     }
 
-
     override fun getButtonsInRange(): Map<Int, Button>
     {
         val maxElements = this.size - 9
