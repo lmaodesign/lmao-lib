@@ -39,9 +39,9 @@ class ScoreboardUpdaterHandlerThread : Thread()
 
         while (true)
         {
-            Bukkit.getOnlinePlayers().forEach { player ->
-                if (player.isOnline && player != null)
-                {
+            Bukkit.getOnlinePlayers()
+                .filter { it.isOnline && it != null }
+                .forEach { player ->
                     val lines = mutableListOf<String>()
                     var title: String? = null
 
@@ -53,7 +53,8 @@ class ScoreboardUpdaterHandlerThread : Thread()
                             if (element == null)
                             {
                                 this.logger.log(
-                                    Level.WARNING, "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
+                                    Level.WARNING,
+                                    "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
                                 )
                                 return
                             }
@@ -72,7 +73,7 @@ class ScoreboardUpdaterHandlerThread : Thread()
                         lines
                     )
                 }
-            }
+
 
             sleep(delay * 50)
         }
