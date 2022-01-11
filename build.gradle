@@ -45,7 +45,7 @@ allprojects {
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
         // We'll shade this into each platform, keep it compileOnly in parent
-        compileOnly "com.github.growlyx:flavor:b38cb0790e"
+        compileOnly "com.github.growlyx:flavor:bea8145510"
     }
 
 

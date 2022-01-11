@@ -1,6 +1,5 @@
 package design.lmao.lib.holograms
 
-import org.bukkit.Location
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.metadata.FixedMetadataValue
@@ -8,11 +7,8 @@ import org.bukkit.metadata.FixedMetadataValue
 class HologramEntity(
     val hologram: Hologram,
     val index: Int,
-    val parent: HologramEntity?
 )
 {
-    private val children = linkedSetOf<HologramEntity>()
-
     fun spawn()
     {
         val location = hologram.location.add(0.0, 0.4 * index, 0.0)
