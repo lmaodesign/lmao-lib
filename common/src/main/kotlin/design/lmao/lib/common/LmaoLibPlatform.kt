@@ -5,12 +5,15 @@ import java.util.logging.Logger
 
 open class LmaoLibPlatform
 {
-    private val flavor = Flavor.create<LmaoLibPlatform>()
+    lateinit var flavor: Flavor
 
-    fun start(
-        logger: Logger
+    open fun start(
+        logger: Logger,
+        flavor: Flavor = Flavor.create<LmaoLibPlatform>()
     )
     {
+        this.flavor = flavor
+
         this.flavor.bind<Flavor>() to flavor
         this.flavor.bind<LmaoLibPlatform>() to this
         this.flavor.bind<Logger>() to logger
@@ -18,7 +21,7 @@ open class LmaoLibPlatform
         this.flavor.startup()
     }
 
-    fun close()
+    open fun close()
     {
         this.flavor.close()
     }

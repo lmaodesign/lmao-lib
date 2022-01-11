@@ -3,4 +3,5 @@ include 'common'
 include 'scoreboard'
 include 'menu'
 include 'holograms'
+include 'bukkit-plugin'
 
