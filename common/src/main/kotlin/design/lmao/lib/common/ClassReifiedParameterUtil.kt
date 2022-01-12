@@ -10,7 +10,6 @@ object ClassReifiedParameterUtil
         return this::class.getTypes()
     }
 
-    @JvmOverloads
     inline fun <reified T> Any.hasTypeOf(
         index: Int = -1
     ): Boolean
@@ -23,7 +22,6 @@ object ClassReifiedParameterUtil
         return this.java.getTypes()
     }
 
-    @JvmOverloads
     inline fun <reified T> KClass<*>.hasTypeOf(
         index: Int = -1
     ): Boolean
@@ -41,8 +39,6 @@ object ClassReifiedParameterUtil
             .toList()
     }
 
-    @JvmStatic
-    @JvmOverloads
     inline fun <reified T> Class<*>.hasTypeOf(
         index: Int = -1
     ): Boolean
