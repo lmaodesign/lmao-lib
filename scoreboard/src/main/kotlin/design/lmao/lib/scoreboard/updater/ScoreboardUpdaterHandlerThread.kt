@@ -1,17 +1,18 @@
 package design.lmao.lib.scoreboard.updater
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder
 import design.lmao.lib.scoreboard.ScoreboardAdapter
-import design.lmao.lib.scoreboard.ScoreboardService
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.inject.condition.Named
-import jdk.jfr.Name
+import gg.scala.flavor.service.Service
 import org.bukkit.Bukkit
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import java.util.logging.Level
 import java.util.logging.Logger
-import kotlin.math.log
 import kotlin.properties.Delegates
 
-class ScoreboardUpdaterHandlerThread : Thread()
+class ScoreboardUpdaterHandlerThread : Runnable
 {
     @Inject
     lateinit var logger: Logger
@@ -26,7 +27,7 @@ class ScoreboardUpdaterHandlerThread : Thread()
     @Inject
     lateinit var adapters: List<ScoreboardAdapter>
 
-    override fun run()
+    fun configure()
     {
         if (adapters.isEmpty())
         {
@@ -37,45 +38,48 @@ class ScoreboardUpdaterHandlerThread : Thread()
             return
         }
 
-        while (true)
-        {
-            Bukkit.getOnlinePlayers()
-                .filter { it.isOnline && it != null }
-                .forEach { player ->
-                    val lines = mutableListOf<String>()
-                    var title: String? = null
+        val executor = Executors.newSingleThreadScheduledExecutor(
+            ThreadFactoryBuilder().setNameFormat("DBL Lib - Scoreboard Updater").build()
+        )
 
-                    adapters
-                        .sortedBy { it.weight }
-                        .forEach {
-                            val element = it.getElement(player)
+        executor.scheduleAtFixedRate(this, 0L, delay * 50L, TimeUnit.MILLISECONDS)
+    }
 
-                            if (element == null)
-                            {
-                                this.logger.log(
-                                    Level.WARNING,
-                                    "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
-                                )
-                                return
-                            }
+    override fun run()
+    {
+        Bukkit.getOnlinePlayers()
+            .filter { it.isOnline && it != null }
+            .forEach { player ->
+                val lines = mutableListOf<String>()
+                var title: String? = null
 
-                            lines += element.lines
+                adapters
+                    .sortedBy { it.weight }
+                    .forEach {
+                        val element = it.getElement(player)
 
-                            if (title == null)
-                            {
-                                title = element.title
-                            }
+                        if (element == null)
+                        {
+                            this.logger.log(
+                                Level.WARNING,
+                                "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
+                            )
+                            return
                         }
 
-                    updater.displayElement(
-                        player,
-                        title ?: "Not set",
-                        lines
-                    )
-                }
+                        lines += element.lines
 
+                        if (title == null)
+                        {
+                            title = element.title
+                        }
+                    }
 
-            sleep(delay * 50)
-        }
+                updater.displayElement(
+                    player,
+                    title ?: "Not set",
+                    lines
+                )
+            }
     }
 }
