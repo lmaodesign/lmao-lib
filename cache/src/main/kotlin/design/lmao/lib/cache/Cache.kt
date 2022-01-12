@@ -6,7 +6,7 @@ import io.github.nosequel.data.store.StoreType
 import java.util.concurrent.CompletableFuture
 
 open class Cache<K, V>(
-    private val cacheTypes: MutableList<CacheType> = mutableListOf(
+    private val cacheTypes: LinkedHashSet<CacheType> = linkedSetOf(
         CacheType.LOCAL_MEM_CACHE,
         CacheType.REDIS_CACHE
     )
@@ -15,7 +15,7 @@ open class Cache<K, V>(
     companion object
     {
         inline fun <reified K, reified V> createCache(
-            cacheTypes: MutableList<CacheType> = mutableListOf(
+            cacheTypes: LinkedHashSet<CacheType> = linkedSetOf(
                 CacheType.LOCAL_MEM_CACHE,
                 CacheType.REDIS_CACHE
             )
