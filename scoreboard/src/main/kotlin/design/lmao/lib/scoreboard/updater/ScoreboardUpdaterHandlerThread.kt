@@ -1,14 +1,11 @@
 package design.lmao.lib.scoreboard.updater
 
 import design.lmao.lib.scoreboard.ScoreboardAdapter
-import design.lmao.lib.scoreboard.ScoreboardService
 import gg.scala.flavor.inject.Inject
 import gg.scala.flavor.inject.condition.Named
-import jdk.jfr.Name
 import org.bukkit.Bukkit
 import java.util.logging.Level
 import java.util.logging.Logger
-import kotlin.math.log
 import kotlin.properties.Delegates
 
 class ScoreboardUpdaterHandlerThread : Thread()
