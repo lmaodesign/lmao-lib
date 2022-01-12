@@ -36,43 +36,54 @@ class ScoreboardUpdaterHandlerThread : Thread()
 
         while (true)
         {
-            Bukkit.getOnlinePlayers()
-                .filter { it.isOnline && it != null }
-                .forEach { player ->
-                    val lines = mutableListOf<String>()
-                    var title: String? = null
+            try
+            {
+                Bukkit.getOnlinePlayers()
+                    .filter { it.isOnline && it != null }
+                    .forEach { player ->
+                        val lines = mutableListOf<String>()
+                        var title: String? = null
 
-                    adapters
-                        .sortedBy { it.weight }
-                        .forEach {
-                            val element = it.getElement(player)
+                        adapters
+                            .sortedBy { it.weight }
+                            .forEach {
+                                val element = it.getElement(player)
 
-                            if (element == null)
-                            {
-                                this.logger.log(
-                                    Level.WARNING,
-                                    "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
-                                )
-                                return
+                                if (element == null)
+                                {
+                                    this.logger.log(
+                                        Level.WARNING,
+                                        "adapter.getElement() returned null for [${player.uniqueId}] ${player.name}"
+                                    )
+                                    return
+                                }
+
+                                lines += element.lines
+
+                                if (title == null)
+                                {
+                                    title = element.title
+                                }
                             }
 
-                            lines += element.lines
+                        updater.displayElement(
+                            player,
+                            title ?: "Not set",
+                            lines
+                        )
+                    }
+            } catch (exception: Exception)
+            {
+                exception.printStackTrace()
+            }
 
-                            if (title == null)
-                            {
-                                title = element.title
-                            }
-                        }
-
-                    updater.displayElement(
-                        player,
-                        title ?: "Not set",
-                        lines
-                    )
-                }
-
-
-            sleep(delay * 50)
+            try
+            {
+                sleep(delay * 50)
+            } catch (exception: Exception)
+            {
+                logger.severe("An exception was thrown while trying to iterate the scoreboard updater thread, you should probably reboot the server & notify a developer. (${exception.message})")
+            }
         }
     }
 }
