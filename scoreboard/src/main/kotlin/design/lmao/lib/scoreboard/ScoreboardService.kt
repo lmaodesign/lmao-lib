@@ -39,7 +39,7 @@ object ScoreboardService
         val updaterThread = this.flavor.injected<ScoreboardUpdaterHandlerThread>()
         this.flavor.bind<ScoreboardUpdaterHandlerThread>() to updaterThread
 
-        updaterThread.start()
+        updaterThread.configure()
     }
 
     @JvmStatic
