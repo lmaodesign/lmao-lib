@@ -65,16 +65,12 @@ abstract class Menu(
         return this.buttons
     }
 
-    open fun click(
-        event: InventoryClickEvent
-    )
+    open fun click(event: InventoryClickEvent)
     {
         this.getButtonsInRange()[event.slot]?.action?.invoke(event)
     }
 
-    open fun close(
-        event: InventoryCloseEvent
-    )
+    open fun close(event: InventoryCloseEvent)
     {
         MenuService.menus.remove(this.player)
     }

@@ -29,11 +29,16 @@ abstract class PaginatedMenu(
                 0 to button(this.previousPage) {
                     this.action {
                         this@PaginatedMenu.apply {
-                            this.page = max(1, this.page - 1); this.update()
+                            this.page = max(
+                                1,
+                                this.page - 1
+                            )
+
+                            this.update()
                         }
                     }
                 },
-                8 to button(this.nextPageBuilder) {
+                8 to button(this.nextPage) {
                     this.action {
                         this@PaginatedMenu.apply {
                             this.page += 1; this.update()
@@ -55,7 +60,7 @@ abstract class PaginatedMenu(
     }
 
 
-    var nextPageBuilder = ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
+    var nextPage = ItemStack(Material.CARPET, 1, DyeColor.GRAY.data.toShort()).apply {
         val meta = this.itemMeta
 
         if (meta != null)

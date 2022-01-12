@@ -8,7 +8,7 @@ open class LmaoLibPlatform
     lateinit var flavor: Flavor
 
     open fun start(
-        logger: Logger,
+        logger: Logger = Logger.getLogger(this::class.java.name),
         flavor: Flavor = Flavor.create<LmaoLibPlatform>()
     )
     {

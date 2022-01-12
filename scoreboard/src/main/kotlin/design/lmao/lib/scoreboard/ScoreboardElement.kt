@@ -8,39 +8,29 @@ open class ScoreboardElement(
 {
     var lines = mutableListOf<String>()
 
-    operator fun plusAssign(
-        value: String
-    )
+    operator fun plusAssign(value: String)
     {
         this.lines += value
     }
 
-    operator fun plusAssign(
-        value: List<String>
-    )
+    operator fun plusAssign(value: List<String>)
     {
         this.lines += value
     }
 
-    infix fun addAll(
-        value: List<String>
-    )
+    infix fun addAll(value: List<String>)
     {
         this += value.map {
             ChatColor.translateAlternateColorCodes('&', it)
         }
     }
 
-    fun addAll(
-        vararg value: String
-    )
+    fun addAll(vararg value: String)
     {
         this@ScoreboardElement addAll value.toList()
     }
 
-    infix fun add(
-        value: String
-    )
+    infix fun add(value: String)
     {
         this.lines += ChatColor.translateAlternateColorCodes('&', value)
     }

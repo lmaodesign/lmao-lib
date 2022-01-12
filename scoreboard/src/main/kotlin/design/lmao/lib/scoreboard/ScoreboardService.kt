@@ -36,13 +36,13 @@ object ScoreboardService
         this.flavor.bind<ScoreboardUpdaterHandler>() to this.updater
         this.flavor.bind<List<ScoreboardAdapter>>() to adapters
 
-        this.flavor.injected<ScoreboardUpdaterHandlerThread>().run()
+        this.flavor
+            .injected<ScoreboardUpdaterHandlerThread>()
+            .run()
     }
 
     @JvmStatic
-    fun registerAdapter(
-        adapter: ScoreboardAdapter
-    )
+    fun registerAdapter(adapter: ScoreboardAdapter)
     {
         this.adapters += adapter
     }
