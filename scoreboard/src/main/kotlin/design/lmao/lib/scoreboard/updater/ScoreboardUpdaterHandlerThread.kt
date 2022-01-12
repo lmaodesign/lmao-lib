@@ -17,7 +17,7 @@ class ScoreboardUpdaterHandlerThread : Runnable
     @Inject
     lateinit var logger: Logger
 
-    @Inject
+    @delegate:Inject
     @delegate:Named("delay")
     var delay by Delegates.notNull<Long>()
 
