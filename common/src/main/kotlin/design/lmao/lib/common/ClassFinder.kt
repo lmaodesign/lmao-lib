@@ -15,14 +15,14 @@ object ClassFinder
         return (classesField.get(classLoader) as Vector<Class<*>>).clone() as Vector<Class<*>>
     }
 
-    inline fun <reified T> typeOfClass(
+    inline fun <reified T> classesBySupertype(
         vararg exclude: Class<*>
-    ): Class<T>?
+    ): List<Class<*>>
     {
         return this.getLoadedClasses()
-            .find {
+            .filter {
                 !exclude.contains(it) && T::class.java.isAssignableFrom(it) && it != T::class.java
-            } as Class<T>?
+            }
     }
 
     fun classesInPackage(

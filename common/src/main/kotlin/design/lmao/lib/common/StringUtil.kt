@@ -1,7 +1,5 @@
 package design.lmao.lib.common
 
-import kotlin.random.Random
-
 object StringUtil
 {
     private val ALPHANUMERIC_CHAR_SET = ('a'..'z') + ('A'..'Z') + ('0'..'9')
