@@ -10,8 +10,15 @@ class LmaoLibBukkitPlugin : JavaPlugin()
     private lateinit var platform: LmaoLibPlatform
     private lateinit var flavor: Flavor
 
+    companion object
+    {
+        lateinit var INSTANCE: JavaPlugin
+    }
+
     override fun onEnable()
     {
+        INSTANCE = this
+
         this.platform = LmaoLibPlatform()
         this.flavor = Flavor.create<LmaoLibPlatform>()
 

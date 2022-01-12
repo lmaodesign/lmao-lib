@@ -1,17 +1,18 @@
 package design.lmao.lib.holograms
 
+import design.lmao.lib.bukkit.entity.LmaoEntity
+import org.bukkit.Location
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
 import org.bukkit.metadata.FixedMetadataValue
 
 class HologramEntity(
-    val hologram: Hologram,
-    val index: Int,
-)
+    private val hologram: Hologram,
+    private val index: Int,
+) : LmaoEntity(EntityType.ARMOR_STAND)
 {
-    fun spawn()
+    override fun spawnAtLocation(location: Location)
     {
-        val location = hologram.location.add(0.0, 0.4 * index, 0.0)
         val entity = location.world.spawnEntity(location, EntityType.ARMOR_STAND) as ArmorStand
 
         entity.setMetadata(
