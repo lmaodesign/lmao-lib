@@ -1,4 +1,4 @@
-package design.lmao.lib.common.cache
+package design.lmao.lib.cache
 
 import java.util.concurrent.CompletableFuture
 

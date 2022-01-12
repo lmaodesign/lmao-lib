@@ -5,4 +5,5 @@ include 'menu'
 include 'holograms'
 include 'bukkit-plugin'
 include 'tasks'
+include 'cache'
 
