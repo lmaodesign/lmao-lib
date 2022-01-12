@@ -10,6 +10,7 @@ object ClassReifiedParameterUtil
         return this::class.getTypes()
     }
 
+    @JvmOverloads
     inline fun <reified T> Any.hasTypeOf(
         index: Int = -1
     ): Boolean
@@ -19,25 +20,51 @@ object ClassReifiedParameterUtil
 
     fun KClass<*>.getTypes(): List<Class<*>>
     {
-        return (this.java.genericSuperclass as ParameterizedType).actualTypeArguments
+        return this.java.getTypes()
+    }
+
+    @JvmOverloads
+    inline fun <reified T> KClass<*>.hasTypeOf(
+        index: Int = -1
+    ): Boolean
+    {
+        return this.java.hasTypeOf<T>(index)
+    }
+
+    @JvmStatic
+    fun Class<*>.getTypes(): List<Class<*>>
+    {
+        return (this.genericSuperclass as ParameterizedType).actualTypeArguments
             .map {
                 it as Class<*>
             }
             .toList()
     }
 
-    inline fun <reified T> KClass<*>.hasTypeOf(
+    @JvmStatic
+    @JvmOverloads
+    inline fun <reified T> Class<*>.hasTypeOf(
         index: Int = -1
+    ): Boolean
+    {
+        return this.hasTypeOf(T::class.java, index)
+    }
+
+    @JvmStatic
+    @JvmOverloads
+    fun <T> Class<*>.hasTypeOf(
+        type: Class<T>,
+        index: Int = -1,
     ): Boolean
     {
         return if (index == -1)
         {
             this.getTypes().any {
-                it == T::class.java
+                it == type.javaClass
             }
         } else
         {
-            this.getTypes()[index] == T::class.java
+            this.getTypes()[index] == type.javaClass
         }
     }
 }
