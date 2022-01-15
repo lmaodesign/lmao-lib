@@ -48,7 +48,9 @@ open class Cache<K, V>(
     fun retrieve(key: K): V?
     {
         this.cacheTypes.forEach {
-            val data = it.retrieve<K, V>(key).invoke(this@Cache)
+            val data = it
+                .retrieve<K, V>(key)
+                .invoke(this@Cache)
 
             if (data != null)
             {

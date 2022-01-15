@@ -6,4 +6,5 @@ include 'holograms'
 include 'bukkit-plugin'
 include 'tasks'
 include 'cache'
+include 'mojang'
 

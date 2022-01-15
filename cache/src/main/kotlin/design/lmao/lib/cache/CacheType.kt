@@ -51,7 +51,9 @@ enum class CacheType
     fun <K, V> retrieve(key: K): Cache<K, V>.() -> V?
     {
         return {
-            this@CacheType.retrieveAsync<K, V>(key).invoke(this).join()
+            this@CacheType
+                .retrieveAsync<K, V>(key)
+                .invoke(this).join()
         }
     }
 }
