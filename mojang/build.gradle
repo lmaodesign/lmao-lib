@@ -1,5 +1,5 @@
 dependencies {
     implementation project(":cache")
     implementation project(":common")
-    implementation 'com.konghq:unirest-java:3.13.4'
+    implementation 'com.konghq:unirest-java:3.13.6'
 }

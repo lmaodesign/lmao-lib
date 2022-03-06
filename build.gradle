@@ -1,20 +1,17 @@
 plugins {
     id 'maven-publish'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 allprojects {
-    group 'design.lmao.lmaolib'
-    version '1.0.0'
-
     apply plugin: 'maven-publish'
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     ext {
         // dependency versions
-        kotlinVersion = '1.6.0'
+        kotlinVersion = '1.6.10'
 
         getCurrentShortRevision = {
             new ByteArrayOutputStream().withStream { os ->
@@ -23,10 +20,16 @@ allprojects {
                     args = ["rev-parse", "HEAD"]
                     standardOutput = os
                 }
+
                 return os.toString().trim().substring(0, 8)
             }
         }
+
+        setProperty("revision", getCurrentShortRevision)
     }
+
+    group 'design.lmao.lmaolib'
+    version ext.getProperty("revision")
 
     repositories {
         mavenLocal()
@@ -44,12 +47,11 @@ allprojects {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
-        compileOnly 'com.google.code.gson:gson:2.8.9'
+        compileOnly 'com.google.code.gson:gson:2.9.0'
 
         // We'll shade this into each platform, keep it compileOnly in parent
         compileOnly "com.github.growlyx:flavor:0.1.2"
     }
-
 
     compileKotlin {
         kotlinOptions.javaParameters = true
@@ -63,7 +65,7 @@ allprojects {
         exclude "**/*.kotlin_builtins"
         exclude "META-INF/"
 
-        archiveFileName = "lmaolib-${project.name}.jar"
+        archiveFileName = "dbllib-${project.name}.jar"
     }
 
     publishing {
