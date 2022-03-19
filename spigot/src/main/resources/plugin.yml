@@ -1,5 +1,5 @@
-main: design.lmao.lib.bukkit.LmaoLibBukkitPlugin
-name: lmao-lib-bukkit
+main: design.lmao.lib.bukkit.LmaoLibSpigotPlatform
+name: LmaoLib
 version: 1.0-SNAPSHOT
 website: design.lmao
 description: A simple all-around library, mostly for Bukkit/Spigot. Written in & targeted for Kotlin projects.

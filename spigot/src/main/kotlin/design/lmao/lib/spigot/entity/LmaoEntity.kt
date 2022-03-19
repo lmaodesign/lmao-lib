@@ -1,6 +1,6 @@
 package design.lmao.lib.spigot.entity
 
-import design.lmao.lib.spigot.LmaoLibSpigotPlugin
+import design.lmao.lib.spigot.LmaoLibSpigotPlatform
 import design.lmao.lib.common.StringUtil
 import org.bukkit.Location
 import org.bukkit.entity.Entity
@@ -59,7 +59,7 @@ open class LmaoEntity(
         this.metadata[key] = value
         this.bukkitEntity!!.setMetadata(
             key, FixedMetadataValue(
-                LmaoLibSpigotPlugin.INSTANCE, value
+                LmaoLibSpigotPlatform.INSTANCE, value
             )
         )
     }
