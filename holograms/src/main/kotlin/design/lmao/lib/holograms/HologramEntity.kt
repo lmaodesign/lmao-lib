@@ -1,6 +1,6 @@
 package design.lmao.lib.holograms
 
-import design.lmao.lib.bukkit.entity.LmaoEntity
+import design.lmao.lib.spigot.entity.LmaoEntity
 import org.bukkit.Location
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType

@@ -3,8 +3,9 @@ include 'common'
 include 'scoreboard'
 include 'menu'
 include 'holograms'
-include 'bukkit-plugin'
 include 'tasks'
 include 'cache'
 include 'mojang'
 
+// platforms
+include 'spigot'
